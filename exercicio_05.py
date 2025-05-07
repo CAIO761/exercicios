@@ -4,6 +4,7 @@ def adicionar_aluno(nome, email, serie):
         "nome": nome,
         "email": email,
         "serie": serie,
+        "notas": []
     }
     lista_alunos.append(aluno)
     return lista_alunos
