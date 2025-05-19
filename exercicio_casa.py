@@ -1,4 +1,18 @@
-clientes = []
+import json
+import os 
+db_clientes = "db_clientes.json"
+#clientes = []
+def carregar_dados():
+    if os.path.exists(db_clientes):
+        with open(db_clientes, "r", endcoding = "utf-8") as arq_json:
+            return json.load(arq_json)
+    else:
+        return []
+
+
+clientes = carregar_dados()
+print(clientes)
+
 
 def obter_dados():
     nome = input("Digite seu nome completo: ")
@@ -33,8 +47,12 @@ def obter_dados():
 
 
 def cadastrar_dados(adicionar_dados):
+    clientes = carregar_dados()
     clientes.append(adicionar_dados)
-    return clientes
+    
+    with open(db_clientes, "w", encoding = "utf-8") as arq_json:
+        json.dump(clientes, arq_json, indent=4, ensure_ascii=False)
+
 
 
 
@@ -55,6 +73,7 @@ def mostrar_dados(dados_cliente):
 
 
 def iniciar_sistema():
+    clientes = carregar_dados()
     while True:
         print("=" *80)
         print("Opção 1 => Mostrar dados do cliente: ")
