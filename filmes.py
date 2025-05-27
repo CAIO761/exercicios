@@ -22,23 +22,28 @@ def colocar_em_cartaz():
     return filme
 
 def cadastro_filmes(adicionar):
-    Filmes = dados_filme()
-    Filmes.append(adicionar)
+    print(adicionar)
+    db_filmes = dados_filme()
+    db_filmes.append(adicionar)
     with open(filmes, "w", encoding = "utf-8") as arq_json:
-            json.dump(Filmes, arq_json, indent=4, ensure_ascii=False)
+            json.dump(db_filmes, arq_json, indent=4, ensure_ascii=False)
+#json.dump vai armazenar os dados dentro do arquivo
 
-def mostrar_filme(mostrar):
-    for filme in mostrar:
-        print(f'''
-        Nome do filme: {filme("nome")}
-        Genero do filme: {filme("genero")}
-        classificação: {filme("classificação")}
+def mostrar_filme(filmes):
+    if filmes:
+        for filme in filmes:
+            print(f'''
+            Nome do filme: {filme["nome"]}
+            Genero do filme: {filme["genero"]}
+            classificação: {filme["classificação"]}
 
-        ''')
+            ''')
+    else:
+        print("Não existe nenhum filme cadastrado!")
 
 
-def opções_escolha():
-    Filmes = dados_filme()
+def iniciar_sistema():
+    db_filmes = dados_filme()
     while True:
         print("="*80)
         print("Opção 1 -> Filme Escolhido")
@@ -48,7 +53,7 @@ def opções_escolha():
         opcao = input("Escolha uma opção: ")
         
         if opcao == "1":
-            mostrar_filme(Filmes)
+            mostrar_filme(db_filmes)
         elif opcao == "2":
             cadastro_filmes(colocar_em_cartaz())
         elif opcao == "3":
@@ -57,24 +62,7 @@ def opções_escolha():
         else:
             print("Não tem essa opção!. Escolha uma das acimas.")
         
-opções_escolha()
-
-            
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
+iniciar_sistema()
 
 
 
